@@ -1,0 +1,103 @@
+---
+layout: default
+---
+
+<div class="category-page">
+    <h1>{{ page.title }}</h1>
+    
+    {% if page.description %}
+    <p class="category-description">{{ page.description }}</p>
+    {% endif %}
+
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search snippets in this category...">
+        <div id="search-results"></div>
+    </div>
+
+    <h2>Snippets in this Category</h2>
+    
+    <div class="snippets-grid">
+        {% if page.category %}
+            {% assign category_name = page.category %}
+        {% else %}
+            {% assign category_name = page.url | split: "/" | slice: -2 | first %}
+        {% endif %}
+        {% assign category_path = "snippets/" | append: category_name | append: "/" %}
+        
+        {% for p in site.pages %}
+            {% if p.path contains category_path %}
+                {% assign parts = p.path | split: "/" %}
+                {% assign fname = p.name %}
+                {% if parts[0] == "snippets" and parts[1] == category_name and parts.size == 3 and fname != "README.md" and fname != "index.md" and fname != "index.html" and p.title %}
+                <div class="snippet-card">
+                    <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+                    <p>{{ p.description }}</p>
+                    
+                    {% if p.tags %}
+                    <div class="tags">
+                        {% for tag in p.tags %}
+                        <a href="{{ site.baseurl }}/tags.html#{{ tag }}" class="tag">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if p.libraries %}
+                    <div class="libraries">
+                        <strong>Libraries:</strong> {{ p.libraries | join: ", " }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .category-description {
+        font-size: 1.1rem;
+        color: #555;
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-left: 4px solid #3498db;
+    }
+    .snippets-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .snippet-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .snippet-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+    .snippet-card h3 {
+        margin-bottom: 10px;
+    }
+    .snippet-card h3 a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+    .snippet-card h3 a:hover {
+        color: #3498db;
+    }
+    .snippet-card p {
+        color: #666;
+        margin-bottom: 15px;
+    }
+    .tags {
+        margin: 10px 0;
+    }
+    .libraries {
+        font-size: 0.9rem;
+        color: #777;
+        margin-top: 10px;
+    }
+</style>
