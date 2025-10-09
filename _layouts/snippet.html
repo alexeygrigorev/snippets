@@ -1,0 +1,144 @@
+---
+layout: default
+---
+
+<article class="snippet">
+    <header class="snippet-header">
+        <h1>{{ page.title }}</h1>
+        
+        {% if page.description %}
+        <p class="snippet-description">{{ page.description }}</p>
+        {% endif %}
+        
+        <div class="snippet-meta">
+            {% if page.libraries %}
+            <div class="meta-item">
+                <strong>Libraries:</strong>
+                {% for lib in page.libraries %}
+                <span class="library-badge">{{ lib }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% if page.tags %}
+            <div class="meta-item">
+                <strong>Tags:</strong>
+                {% for tag in page.tags %}
+                <a href="{{ site.baseurl }}/tags.html#{{ tag }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </header>
+    
+    <div class="snippet-content">
+        {{ content }}
+    </div>
+    
+    <footer class="snippet-footer">
+        <a href="javascript:history.back()" class="back-button">← Back to Category</a>
+    </footer>
+</article>
+
+<style>
+    .snippet-header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    .snippet-header h1 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+    .snippet-description {
+        font-size: 1.2rem;
+        color: #555;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+    .snippet-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .meta-item {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .meta-item strong {
+        margin-right: 10px;
+        color: #2c3e50;
+    }
+    .library-badge {
+        display: inline-block;
+        background-color: #e74c3c;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 3px;
+        font-size: 0.85rem;
+        margin: 2px;
+    }
+    .snippet-content {
+        margin: 30px 0;
+    }
+    .snippet-content h2 {
+        color: #2c3e50;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+    .snippet-content h3 {
+        color: #34495e;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+    .snippet-content p {
+        margin-bottom: 15px;
+        line-height: 1.8;
+    }
+    .snippet-content ul, .snippet-content ol {
+        margin: 15px 0 15px 30px;
+    }
+    .snippet-content li {
+        margin-bottom: 8px;
+    }
+    .snippet-content pre {
+        background-color: #282c34;
+        color: #abb2bf;
+        padding: 20px;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin: 20px 0;
+    }
+    .snippet-content code {
+        background-color: #282c34;
+        color: #abb2bf;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+    }
+    .snippet-content pre code {
+        background-color: transparent;
+        padding: 0;
+    }
+    .snippet-footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #e0e0e0;
+    }
+    .back-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .back-button:hover {
+        background-color: #2980b9;
+    }
+</style>

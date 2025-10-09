@@ -1,0 +1,143 @@
+---
+layout: default
+title: Code Snippets Collection
+---
+
+<div class="homepage">
+    <h1>Welcome to the Code Snippets Collection</h1>
+    <p class="intro">
+        A curated collection of practical code snippets organized by category. 
+        Browse through various programming topics and find reusable code examples for your projects.
+    </p>
+
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search all snippets...">
+        <div id="search-results"></div>
+    </div>
+
+    <h2>Browse by Category</h2>
+    
+    <div class="categories-grid">
+        {% assign categories = "ai,python,webdev,data,devops" | split: "," %}
+        
+        {% for category in categories %}
+            {% capture readme_path %}snippets/{{ category }}/README.md{% endcapture %}
+            {% assign readme = site.pages | where: "path", readme_path | first %}
+            
+            <div class="category-card">
+                <h3><a href="{{ site.baseurl }}/snippets/{{ category }}/">{{ category | capitalize }}</a></h3>
+                
+                {% if readme %}
+                    {% assign lines = readme.content | split: "
+" %}
+                    {% assign description = "" %}
+                    {% for line in lines %}
+                        {% if line contains "This category" %}
+                            {% assign description = line %}
+                            {% break %}
+                        {% endif %}
+                    {% endfor %}
+                    <p>{{ description | strip_html | truncatewords: 20 }}</p>
+                {% else %}
+                    <p>Code snippets for {{ category }}</p>
+                {% endif %}
+                
+                {% assign category_snippets = site.pages | where_exp: "item", "item.path contains category" | where_exp: "item", "item.title != nil" | where_exp: "item", "item.name != 'README.md'" %}
+                <p class="snippet-count">{{ category_snippets.size }} snippets</p>
+                
+                <a href="{{ site.baseurl }}/snippets/{{ category }}/" class="view-category">View Category →</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="features">
+        <h2>Features</h2>
+        <ul>
+            <li>✓ Organized by category for easy navigation</li>
+            <li>✓ Each snippet includes code examples and explanations</li>
+            <li>✓ Tagged for easy filtering and discovery</li>
+            <li>✓ Search functionality to find what you need quickly</li>
+            <li>✓ Syntax highlighting for better readability</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .intro {
+        font-size: 1.2rem;
+        color: #555;
+        margin: 20px 0 40px 0;
+        text-align: center;
+    }
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+    .category-card {
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 25px;
+        transition: all 0.3s;
+        background-color: #fafafa;
+    }
+    .category-card:hover {
+        border-color: #3498db;
+        box-shadow: 0 6px 16px rgba(52, 152, 219, 0.2);
+        transform: translateY(-3px);
+    }
+    .category-card h3 {
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+    .category-card h3 a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+    .category-card h3 a:hover {
+        color: #3498db;
+    }
+    .category-card p {
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+    .snippet-count {
+        font-size: 0.9rem;
+        color: #888;
+        font-style: italic;
+    }
+    .view-category {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 8px 16px;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .view-category:hover {
+        background-color: #2980b9;
+    }
+    .features {
+        margin-top: 50px;
+        padding: 30px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+    .features h2 {
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+    .features ul {
+        list-style: none;
+        padding: 0;
+    }
+    .features li {
+        padding: 10px 0;
+        font-size: 1.1rem;
+        color: #555;
+    }
+</style>
