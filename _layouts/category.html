@@ -30,13 +30,13 @@ layout: default
                 {% assign fname = p.name %}
                 {% if parts[0] == "snippets" and parts[1] == category_name and parts.size == 3 and fname != "README.md" and fname != "index.md" and fname != "index.html" and p.title %}
                 <div class="snippet-card">
-                    <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+                    <h3><a href="{{ p.url | absolute_url }}">{{ p.title }}</a></h3>
                     <p>{{ p.description }}</p>
                     
                     {% if p.tags %}
                     <div class="tags">
                         {% for tag in p.tags %}
-                        <a href="{{ site.baseurl }}/tags.html#{{ tag }}" class="tag">{{ tag }}</a>
+                        <a href="{{ '/tags.html#' | append: tag | absolute_url }}" class="tag">{{ tag }}</a>
                         {% endfor %}
                     </div>
                     {% endif %}

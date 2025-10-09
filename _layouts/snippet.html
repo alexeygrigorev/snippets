@@ -24,7 +24,7 @@ layout: default
             <div class="meta-item">
                 <strong>Tags:</strong>
                 {% for tag in page.tags %}
-                <a href="{{ site.baseurl }}/tags.html#{{ tag }}" class="tag">{{ tag }}</a>
+                <a href="{{ '/tags.html#' | append: tag | absolute_url }}" class="tag">{{ tag }}</a>
                 {% endfor %}
             </div>
             {% endif %}
