@@ -64,6 +64,7 @@ Additional notes...
 - Keep lines under ~100 characters where practical.
 - Use code comments sparingly to highlight non-obvious details.
 - Prefer explicit imports in examples (do not assume star imports).
+- Prefer direct attribute access in examples (e.g., `obj.attr`) and avoid `getattr`/`hasattr` unless the API explicitly requires defensive access. Keep code simple and readable.
 
 ## Examples and templates
 
@@ -133,7 +134,3 @@ If a snippet doesn't fit these rules (for example, it truly requires system libr
 
 - If including code copied from external sources, ensure the license allows redistribution and add an attribution note in the bottom of the file.
 
-
-## Contact
-
-If you're an automated agent and need clarification, open a draft PR and add a short comment explaining the ambiguity so a human maintainer can resolve it.
